@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RouteOnMap</string>
+
+    <string name="text_nearest_points">Nearest Points</string>
+    <string name="text_animate_on_map">Animate On Map</string>
+    
+    <string name="hint_landmark">Type landmark here</string>
+    <string name="text_nearest_points_message">Following points are nearest to each other</string>
+</resources>

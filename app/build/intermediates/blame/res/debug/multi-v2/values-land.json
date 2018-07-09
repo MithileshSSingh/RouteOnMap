@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/mithilesh/AndroidStudioProjects/RouteOnMap/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
+            "map": [
+                {
+                    "source": "/home/mithilesh/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/ec7a8a58dc81f41be3f1c1dc82fd784b/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,125,189,260",
+                        "endColumns": "69,63,70,67",
+                        "endOffsets": "120,184,255,323"
+                    }
+                },
+                {
+                    "source": "/home/mithilesh/.gradle/caches/transforms-1/files-1.1/play-services-cast-framework-9.6.1.aar/f256c73dc6165598c5e5e6021d835492/res/values-land/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "243,335,426,525",
+                        "endColumns": "91,90,98,94",
+                        "endOffsets": "330,421,520,615"
+                    },
+                    "to": {
+                        "startLines": "6,7,8,9",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "328,420,511,610",
+                        "endColumns": "91,90,98,94",
+                        "endOffsets": "415,506,605,700"
+                    }
+                }
+            ]
+        }
+    ]
+}

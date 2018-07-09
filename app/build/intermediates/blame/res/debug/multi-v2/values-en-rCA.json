@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/mithilesh/AndroidStudioProjects/RouteOnMap/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
+            "map": [
+                {
+                    "source": "/home/mithilesh/.gradle/caches/transforms-1/files-1.1/play-services-wallet-9.6.1.aar/a77f5d50d636b58574550c7cec35ad96/res/values-en-rCA/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "304",
+                        "endColumns": "103",
+                        "endOffsets": "403"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "103",
+                        "endOffsets": "154"
+                    }
+                }
+            ]
+        }
+    ]
+}
