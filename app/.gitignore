@@ -1,6 +1,6 @@
 # Built application files
-/*/build/
-/*/debug/
+/build
+/debug
 # Local configuration file (sdk path, etc)
 local.properties
 
