@@ -1,7 +1,6 @@
 package com.example.mithilesh.routeonmap.mvp.screen_map;
 
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ahmadrosid.lib.drawroutemap.DrawMarker;
 import com.ahmadrosid.lib.drawroutemap.DrawRouteMaps;
 import com.example.mithilesh.routeonmap.R;
 import com.example.mithilesh.routeonmap.di.RepositoryInjector;
@@ -36,6 +34,7 @@ public class RouteMapFragment extends BaseFragment implements RouteMapContract.V
 
     private SupportMapFragment mMapFragment;
     private GoogleMap mGoogleMap;
+    private ArrayList<LatLng> latLngs;
 
     public RouteMapFragment() {
     }
@@ -115,36 +114,59 @@ public class RouteMapFragment extends BaseFragment implements RouteMapContract.V
         });
     }
 
-    private void drawPath(ArrayList<BeanLocation> dataList) {
+    private void drawPath(final ArrayList<BeanLocation> dataList) {
 
-        List<LatLng> latLngs = new ArrayList<>();
+        latLngs = new ArrayList<>();
 
+        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
 
-        LatLng origin = null;
-        LatLng destination = null;
+                for (int i = 0; i < dataList.size(); i++) {
+                    LatLng latLng = new LatLng(dataList.get(i).getLatitude(), dataList.get(i).getLongitude());
+                    latLngs.add(latLng);
+                }
 
-        for (int i = 1; i < dataList.size(); i++) {
-            origin = new LatLng(dataList.get(i - 1).getLatitude(), dataList.get(i - 1).getLongitude());
-            destination = new LatLng(dataList.get(i).getLatitude(), dataList.get(i).getLongitude());
-            DrawRouteMaps.getInstance(mActivity).draw(origin, destination, mGoogleMap);
+                zoomRoute(latLngs);
 
-            drawCircle(origin);
-        }
+                mGoogleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+                    @Override
+                    public void onCameraIdle() {
 
-        drawCircle(destination);
+                        LatLng origin = null;
+                        LatLng destination = null;
 
-        LatLng firstPoint = new LatLng(dataList.get(0).getLatitude(), dataList.get(0).getLongitude());
-        LatLng lastPoint = new LatLng(dataList.get(dataList.size() - 1).getLatitude(), dataList.get(dataList.size() - 1).getLongitude());
+                        for (int i = 0; i < latLngs.size() - 1; i++) {
 
-        LatLngBounds bounds = new LatLngBounds.Builder().include(firstPoint).include(lastPoint).build();
+                            origin = latLngs.get(i);
+                            destination = latLngs.get(i + 1);
 
-        Point displaySize = new Point();
-        mActivity.getWindowManager().getDefaultDisplay().getSize(displaySize);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30));
+                            DrawRouteMaps.getInstance(mActivity).draw(origin, destination, mGoogleMap);
+                            drawCircle(origin);
+                        }
+                        drawCircle(destination);
+                    }
+                });
 
+            }
+        });
     }
 
-    private void drawCircle(LatLng point){
+    public void zoomRoute(List<LatLng> lstLatLngRoute) {
+
+        if (mGoogleMap == null || lstLatLngRoute == null || lstLatLngRoute.isEmpty()) return;
+
+        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
+        for (LatLng latLngPoint : lstLatLngRoute)
+            boundsBuilder.include(latLngPoint);
+
+        int routePadding = 150;
+        LatLngBounds latLngBounds = boundsBuilder.build();
+
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, routePadding));
+    }
+
+    private void drawCircle(LatLng point) {
 
         CircleOptions circleOptions = new CircleOptions();
         circleOptions.center(point);
